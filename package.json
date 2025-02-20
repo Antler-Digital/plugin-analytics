@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-analytics",
-  "version": "1.0.45",
+  "version": "1.0.46",
   "description": "A blank template to get started with Payload 3.0",
   "license": "MIT",
   "type": "module",
@@ -41,12 +41,22 @@
     "cz": "git-cz"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.6",
+    "@radix-ui/react-dropdown-menu": "^2.1.6",
+    "@radix-ui/react-select": "^2.1.6",
+    "@radix-ui/react-slot": "^1.1.2",
+    "@tanstack/react-table": "^8.21.2",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "esbuild": "^0.25.0",
+    "lucide-react": "^0.475.0",
     "mongodb": "^6.13.0",
     "next": "15.1.5",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "react-simple-maps": "^3.0.0",
+    "recharts": "^2.15.1",
+    "swr": "^2.3.2",
     "tailwind-merge": "^3.0.1"
   },
   "devDependencies": {
@@ -66,6 +76,7 @@
     "@types/node": "^22.5.4",
     "@types/react": "19.0.7",
     "@types/react-dom": "19.0.3",
+    "@types/react-simple-maps": "^3.0.6",
     "copyfiles": "2.4.1",
     "cross-env": "^7.0.3",
     "eslint": "^9.16.0",

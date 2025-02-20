@@ -5,7 +5,7 @@ import type { AnalyticsPluginOptions } from './types.js'
 import { initEventsCollection } from './collections/events.js'
 import { initSessionsCollection } from './collections/sessions.js'
 import { EventsEndpoint } from './endpoints/events-endpoint.js'
-import { initConfigJobs } from './job-queues/init-jobs.js'
+import { initConfigJobs, onInitCrons } from './job-queues/init-jobs.js'
 import { onInitExtension } from './utils/onInitExtension.js'
 
 export type AnalyticsPluginConfig = {
@@ -39,18 +39,11 @@ export const analyticsPlugin =
     const eventsCollection = initEventsCollection(safePluginOptions)
     const sessionsCollection = initSessionsCollection(safePluginOptions)
 
-    config.endpoints = [
-      ...(config.endpoints || []),
-      {
-        handler: EventsEndpoint(safePluginOptions).handler,
-        method: 'get',
-        path: '/events',
-      },
-    ]
-
     if (!config.collections) {
       config.collections = []
     }
+
+    config.collections.push(eventsCollection, sessionsCollection)
 
     if (pluginOptions.disabled) {
       return config
@@ -59,6 +52,12 @@ export const analyticsPlugin =
     if (!config.endpoints) {
       config.endpoints = []
     }
+
+    config.endpoints.push({
+      handler: EventsEndpoint(safePluginOptions).handler,
+      method: 'get',
+      path: '/events',
+    })
 
     if (!config.admin) {
       config.admin = {}
@@ -96,24 +95,13 @@ export const analyticsPlugin =
 
     initConfigJobs(config, safePluginOptions)
 
-    config.collections = [...(config.collections || []), eventsCollection, sessionsCollection]
-
     config.onInit = async (payload) => {
       if (incomingConfig.onInit) {
         await incomingConfig.onInit(payload)
       }
       // Add additional onInit code by using the onInitExtension function
       onInitExtension(safePluginOptions, payload)
-      // await onInitCrons(safePluginOptions, payload);
-    }
-
-    const incomingOnInit = config.onInit
-
-    config.onInit = async (payload) => {
-      // Ensure we are executing any existing onInit functions before running our own.
-      if (incomingOnInit) {
-        await incomingOnInit(payload)
-      }
+      await onInitCrons(safePluginOptions, payload)
     }
 
     return config

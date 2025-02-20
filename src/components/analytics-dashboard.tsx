@@ -75,6 +75,8 @@ export async function AnalyticsDashboard({
     console.error(error)
   }
 
+  console.log('data', data)
+
   return (
     <DefaultTemplate
       i18n={initPageResult.req.i18n as any}

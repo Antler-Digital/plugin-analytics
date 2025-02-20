@@ -8,7 +8,7 @@ import { EventsEndpoint } from './endpoints/events-endpoint.js'
 import { initConfigJobs } from './job-queues/init-jobs.js'
 import { onInitExtension } from './utils/onInitExtension.js'
 
-export type DefaultTemplateTestConfig = {
+export type AnalyticsPluginConfig = {
   /**
    * List of collections to add a custom field
    */
@@ -16,8 +16,8 @@ export type DefaultTemplateTestConfig = {
   disabled?: boolean
 }
 
-export const defaultTemplateTest =
-  (pluginOptions: DefaultTemplateTestConfig) =>
+export const analyticsPlugin =
+  (pluginOptions: AnalyticsPluginConfig) =>
   (incomingConfig: Config): Config => {
     const config = { ...incomingConfig }
 

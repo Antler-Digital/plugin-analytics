@@ -40,7 +40,7 @@ export const defaultTemplateTest =
     }
 
     config.admin.components.views.analyticsDashboard = {
-      Component: `plugin-analytics/rsc#AnalyticsDashboard`,
+      Component: `payload-plugin-analytics/rsc#AnalyticsDashboard`,
       path: '/analytics',
     }
 
@@ -50,7 +50,7 @@ export const defaultTemplateTest =
 
     config.admin.components.afterNavLinks.push({
       exportName: 'AnalyticsNavLink',
-      path: 'plugin-analytics/rsc#AnalyticsNavLink',
+      path: 'payload-plugin-analytics/rsc#AnalyticsNavLink',
       serverProps: {
         href: '/admin/analytics',
         label: 'Analytics',

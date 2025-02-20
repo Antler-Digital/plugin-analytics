@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-analytics",
-  "version": "1.0.43",
+  "version": "1.0.44",
   "description": "A blank template to get started with Payload 3.0",
   "license": "MIT",
   "type": "module",
@@ -33,6 +33,7 @@
     "dev:payload": "cross-env PAYLOAD_CONFIG_PATH=./dev/payload.config.ts payload",
     "lint": "eslint",
     "lint:fix": "eslint ./src --fix",
+    "prebuild": "pnpm clean",
     "prepublishOnly": "pnpm clean && pnpm build",
     "test": "echo 'test'",
     "release": "pnpm build && changeset version && changeset publish",
@@ -40,9 +41,12 @@
     "cz": "git-cz"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
+    "mongodb": "^6.13.0",
     "next": "15.1.5",
     "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react-dom": "19.0.0",
+    "tailwind-merge": "^3.0.1"
   },
   "devDependencies": {
     "@changesets/cli": "^2.28.0",

@@ -1,5 +1,13 @@
 import type { CollectionSlug, Config } from 'payload'
 
+import type { AnalyticsPluginOptions } from './types.js'
+
+import { initEventsCollection } from './collections/events.js'
+import { initSessionsCollection } from './collections/sessions.js'
+import { EventsEndpoint } from './endpoints/events-endpoint.js'
+import { initConfigJobs } from './job-queues/init-jobs.js'
+import { onInitExtension } from './utils/onInitExtension.js'
+
 export type DefaultTemplateTestConfig = {
   /**
    * List of collections to add a custom field
@@ -10,7 +18,36 @@ export type DefaultTemplateTestConfig = {
 
 export const defaultTemplateTest =
   (pluginOptions: DefaultTemplateTestConfig) =>
-  (config: Config): Config => {
+  (incomingConfig: Config): Config => {
+    const config = { ...incomingConfig }
+
+    const safePluginOptions: Required<AnalyticsPluginOptions> = {
+      collectionSlug: 'analytics',
+      dashboardLinkLabel: 'Analytics',
+      dashboardSlug: '/analytics',
+      isServerless: true,
+      maxAgeInDays: 60,
+      ...pluginOptions,
+    }
+
+    const { dashboardLinkLabel, dashboardSlug, maxAgeInDays } = safePluginOptions
+
+    if (dashboardSlug.startsWith('/')) {
+      safePluginOptions.dashboardSlug = dashboardSlug.replace(/^\//, '')
+    }
+
+    const eventsCollection = initEventsCollection(safePluginOptions)
+    const sessionsCollection = initSessionsCollection(safePluginOptions)
+
+    config.endpoints = [
+      ...(config.endpoints || []),
+      {
+        handler: EventsEndpoint(safePluginOptions).handler,
+        method: 'get',
+        path: '/events',
+      },
+    ]
+
     if (!config.collections) {
       config.collections = []
     }
@@ -56,6 +93,19 @@ export const defaultTemplateTest =
         label: 'Analytics',
       },
     })
+
+    initConfigJobs(config, safePluginOptions)
+
+    config.collections = [...(config.collections || []), eventsCollection, sessionsCollection]
+
+    config.onInit = async (payload) => {
+      if (incomingConfig.onInit) {
+        await incomingConfig.onInit(payload)
+      }
+      // Add additional onInit code by using the onInitExtension function
+      onInitExtension(safePluginOptions, payload)
+      // await onInitCrons(safePluginOptions, payload);
+    }
 
     const incomingOnInit = config.onInit
 

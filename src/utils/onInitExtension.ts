@@ -16,7 +16,10 @@ export const onInitExtension = (pluginOptions: AnalyticsPluginOptions, payload: 
 
     // Destination is the project's public directory
     const publicDir = path.resolve(process.cwd(), 'public')
-    console.log('Public directory:', publicDir)
+    payload.logger.info({
+      msg: 'Public directory:',
+      publicDir,
+    })
     const destFile = path.join(publicDir, 'analytics.min.js')
 
     // Ensure public directory exists

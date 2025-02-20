@@ -1,6 +1,6 @@
 {
   "name": "plugin-analytics",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A blank template to get started with Payload 3.0",
   "license": "MIT",
   "type": "module",
@@ -86,7 +86,8 @@
     "payload": "^3.17.1"
   },
   "engines": {
-    "node": "^18.20.2 || >=20.9.0"
+    "node": "^18.20.2 || >=20.9.0",
+    "pnpm": "^9"
   },
   "publishConfig": {
     "exports": {

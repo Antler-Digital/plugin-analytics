@@ -49,8 +49,8 @@ export const defaultTemplateTest =
     }
 
     config.admin.components.afterNavLinks.push({
-      exportName: 'AnalyticsLink',
-      path: 'plugin-analytics/rsc#AnalyticsLink',
+      exportName: 'AnalyticsNavLink',
+      path: 'plugin-analytics/rsc#AnalyticsNavLink',
       serverProps: {
         href: '/admin/analytics',
         label: 'Analytics',

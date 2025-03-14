@@ -1,9 +1,7 @@
-import { BeforeDashboardClient as BeforeDashboardClient_fc6e7dd366b9e2c8ce77d31252122343 } from 'plugin-package-name-placeholder/client'
-import { BeforeDashboardServer as BeforeDashboardServer_c4406fcca100b2553312c5a3d7520a3f } from 'plugin-package-name-placeholder/rsc'
+import { AnalyticsLink as AnalyticsLink_8d8d3356eacd586ac1408356f6301c94 } from 'payload-plugin-analytics/rsc'
+import { AnalyticsDashboard as AnalyticsDashboard_8d8d3356eacd586ac1408356f6301c94 } from 'payload-plugin-analytics/rsc'
 
 export const importMap = {
-  'plugin-package-name-placeholder/client#BeforeDashboardClient':
-    BeforeDashboardClient_fc6e7dd366b9e2c8ce77d31252122343,
-  'plugin-package-name-placeholder/rsc#BeforeDashboardServer':
-    BeforeDashboardServer_c4406fcca100b2553312c5a3d7520a3f,
+  "payload-plugin-analytics/rsc#AnalyticsLink": AnalyticsLink_8d8d3356eacd586ac1408356f6301c94,
+  "payload-plugin-analytics/rsc#AnalyticsDashboard": AnalyticsDashboard_8d8d3356eacd586ac1408356f6301c94
 }

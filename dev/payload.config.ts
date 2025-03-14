@@ -2,7 +2,7 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
-import { pluginAnalytics } from 'plugin-analytics'
+import { analyticsPlugin } from 'payload-plugin-analytics'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
@@ -42,16 +42,10 @@ export default buildConfig({
   }),
   editor: lexicalEditor(),
   email: testEmailAdapter,
-  onInit: async (payload) => {
-    await seed(payload)
-  },
-  plugins: [
-    pluginAnalytics({
-      collections: {
-        posts: true,
-      },
-    }),
-  ],
+  // onInit: async (payload) => {
+  //   await seed(payload)
+  // },
+  plugins: [analyticsPlugin()],
   secret: process.env.PAYLOAD_SECRET || 'test-secret_key',
   sharp,
   typescript: {

@@ -1,0 +1,1 @@
+{"crons":[{"path":"/api/payload-jobs/run?queue=nightly","schedule":"0 * * * *"}]}

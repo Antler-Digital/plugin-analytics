@@ -1,8 +1,9 @@
 // import '../styles/input.css'
+import '../styles/output.css'
 
 import { DefaultTemplate } from '@payloadcms/next/templates'
 import { Gutter } from '@payloadcms/ui'
-// @ts-ignore
+// @ts-expect-error next/navigation can only be used in nextjs app directory
 import { redirect } from 'next/navigation'
 
 import type { DashboardData } from '../actions/get-dashboard-stats.js'
@@ -75,8 +76,6 @@ export async function AnalyticsDashboard({
     console.error(error)
   }
 
-  console.log('data', data)
-
   return (
     <DefaultTemplate
       i18n={initPageResult.req.i18n as any}
@@ -94,7 +93,7 @@ export async function AnalyticsDashboard({
           <div className="tw-flex tw-flex-col tw-gap-4 tw-pb-10">
             <div className="tw-flex tw-flex-col tw-w-full tw-space-y-4">
               <FlexRow>
-                <h1 className="tw-text-2xl tw-font-bold">Analytics Dashboard</h1>
+                <h1 className="tw-text-2xl tw-font-bold tw-text-red-600">Analytics Dashboard</h1>
                 <SelectDateRange maxAgeInDays={pluginOptions.maxAgeInDays} />
               </FlexRow>
             </div>

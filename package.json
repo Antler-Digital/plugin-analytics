@@ -15,10 +15,10 @@
       "types": "./dist/exports/rsc.d.ts",
       "default": "./dist/exports/rsc.js"
     },
-    "./styles": {
-      "import": "./src/styles/output.css",
-      "types": "./src/styles/output.css",
-      "default": "./src/styles/output.css"
+    "./styles/index.css": {
+      "import": "./dist/styles/index.css",
+      "types": "./dist/styles/index.css",
+      "default": "./dist/styles/index.css"
     }
   },
   "main": "./dist/index.js",
@@ -30,11 +30,11 @@
     "build": "pnpm build:styles && pnpm copyfiles && pnpm build:types && pnpm build:swc",
     "build:swc": "swc ./src -d ./dist --config-file .swcrc --strip-leading-paths",
     "build:types": "tsc --outDir dist --rootDir ./src",
-    "build:styles": "tailwindcss -i ./src/styles/index.css -o ./src/styles/output.css",
+    "build:styles": "tailwindcss -i ./src/styles/input.css -o ./src/styles/index.css",
     "clean": "rimraf {dist,*.tsbuildinfo}",
     "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png,json}\" dist/",
     "dev": "concurrently \"pnpm dev:styles\" \"payload run ./dev/server.ts\"",
-    "dev:styles": "tailwindcss -i ./src/styles/index.css -o ./src/styles/output.css --watch",
+    "dev:styles": "tailwindcss -i ./src/styles/input.css -o ./src/styles/index.css --watch",
     "dev:generate-importmap": "pnpm dev:payload generate:importmap",
     "dev:generate-types": "pnpm dev:payload generate:types",
     "dev:payload": "cross-env PAYLOAD_CONFIG_PATH=./dev/payload.config.ts payload",
@@ -68,7 +68,7 @@
     "recharts": "^2.15.1",
     "swr": "^2.3.2",
     "tailwind-merge": "^3.0.1",
-    "tailwindcss": "^4.0.14"
+    "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
     "@changesets/cli": "^2.28.0",
@@ -127,9 +127,9 @@
         "default": "./dist/exports/rsc.js"
       },
       "./styles": {
-        "import": "./src/styles/output.css",
-        "types": "./src/styles/output.css",
-        "default": "./src/styles/output.css"
+        "import": "./dist/styles/output.css",
+        "types": "./dist/styles/output.css",
+        "default": "./dist/styles/output.css"
       }
     },
     "main": "./dist/index.js",

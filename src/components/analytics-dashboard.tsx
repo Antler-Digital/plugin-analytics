@@ -1,6 +1,4 @@
-// import '../styles/input.css'
-import '../styles/output.css'
-
+// import '../styles/index.css'
 import { DefaultTemplate } from '@payloadcms/next/templates'
 import { Gutter } from '@payloadcms/ui'
 // @ts-expect-error next/navigation can only be used in nextjs app directory

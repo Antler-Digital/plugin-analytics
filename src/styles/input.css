@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import '@radix-ui/themes/styles.css';
+
+@layer base {
+  *:where([class*='tw-']),
+  ::after:where([class*='tw-']),
+  ::before:where([class*='tw-']),
+  ::backdrop:where([class*='tw-']),
+  ::file-selector-button:where([class*='tw-']) {
+    box-sizing: border-box; /* 1 */
+    margin: 0; /* 2 */
+    padding: 0; /* 2 */
+    border: 0 solid; /* 3 */
+  }
+
+  button:where([class*='tw-']),
+  input:where([class*='tw-']),
+  select:where([class*='tw-']),
+  optgroup:where([class*='tw-']),
+  textarea:where([class*='tw-']),
+  ::file-selector-button:where([class*='tw-']) {
+    font: inherit; /* 1 */
+    font-feature-settings: inherit; /* 1 */
+    font-variation-settings: inherit; /* 1 */
+    letter-spacing: inherit; /* 1 */
+    color: inherit; /* 1 */
+    border-radius: 0; /* 2 */
+    background-color: transparent; /* 3 */
+    opacity: 1; /* 4 */
+  }
+
+  table:where([class*='tw-']) {
+    text-indent: 0; /* 1 */
+    border-color: inherit; /* 2 */
+    border-collapse: collapse; /* 3 */
+  }
+
+  button:where([class*='tw-']),
+  input:where([type='button'], [type='reset'], [type='submit'], [class*='tw-']),
+  ::file-selector-button:where([class*='tw-']) {
+    appearance: button;
+  }
+
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+    --ring: 215 20.2% 65.1%;
+    --radius: 0.5rem;
+    --chart-contrast-1: 220 69% 45%;
+    --chart-1: 355 94% 92%;
+    --chart-2: 350 94% 92%;
+    --chart-3: 345 94% 92%;
+    --chart-4: 340 94% 92%;
+    --chart-5: 335 94% 92%;
+    --chart-6: 330 94% 92%;
+    --chart-7: 325 94% 92%;
+    --chart-8: 320 94% 92%;
+    --chart-9: 315 94% 92%;
+    --chart-10: 310 94% 92%;
+    --chart-views: 220 69% 45%;
+    --chart-visitors: 338 63% 52%;
+    --chart-referrers: 0 0% 20%;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --card: 240 10% 4%;
+    --card-foreground: 213 31% 91%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --ring: 216 34% 17%;
+    --chart-contrast-1: 220 69% 45%;
+    --chart-1: 348 77% 50%;
+    --chart-2: 349 77% 62%;
+    --chart-3: 350 80% 72%;
+    --chart-4: 351 83% 82%;
+    --chart-5: 352 83% 91%;
+    --chart-views: 220 69% 45%;
+    --chart-visitors: 338 63% 52%;
+    --chart-referrers: 0 0% 20% / 0.49;
+  }
+}
+
+/* .DialogContent {
+  @apply tw-bg-black tw-rounded-lg tw-shadow-lg tw-fixed tw-top-[50%] tw-left-[50%] tw-transform tw-translate-x-[-50%] tw-translate-y-[-50%] tw-max-w-3xl tw-max-h-[85vh] tw-p-10 tw-animate-in tw-animate-out tw-fade-out-0 tw-fade-in-0;
+} */
+
+.DialogHeader {
+  @apply tw-mb-4 !tw-text-left;
+}

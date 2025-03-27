@@ -9,6 +9,30 @@ import type { ChartConfig } from '../ui/chart.js'
 
 import { ChartContainer } from '../ui/chart.js'
 
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="!tw-text-xl tw-flex tw-flex-col tw-gap-y-2 tw-items-start tw-bg-black tw-p-4">
+        {payload.map((item: any) => (
+          <div
+            className="tw-flex tw-items-center tw-gap-x-2"
+            key={item.name}
+            style={{
+              color: item.color,
+            }}
+          >
+            <div className="tw-w-2 tw-h-2" style={{ backgroundColor: item.color }} />
+            <span className="tw-capitalize">
+              {item.name} : {item.value}
+            </span>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  return null
+}
 export function AreaChartGraph({ data, xAxis }: { data: any[]; xAxis: string }) {
   const areas: JSX.Element[] = []
   const linearGradients: JSX.Element[] = []
@@ -55,61 +79,39 @@ export function AreaChartGraph({ data, xAxis }: { data: any[]; xAxis: string }) 
     return acc
   }, {} as ChartConfig)
 
-  const CustomTooltip = ({ active, label, payload, ...rest }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="!tw-text-xl tw-flex tw-flex-col tw-gap-y-2 tw-items-start tw-bg-black tw-p-4">
-          {payload.map((item: any) => (
-            <div
-              className="tw-flex tw-items-center tw-gap-x-2"
-              key={item.name}
-              style={{
-                color: item.color,
-              }}
-            >
-              <div className="tw-w-2 tw-h-2" style={{ backgroundColor: item.color }} />
-              <span className="tw-capitalize">
-                {item.name} : {item.value}
-              </span>
-            </div>
-          ))}
-        </div>
-      )
-    }
-
-    return null
-  }
-
   return (
-    <ChartContainer className="tw-h-[400px] tw-w-full" config={configKeys}>
-      <AreaChart
-        accessibilityLayer
-        data={data}
-        margin={{
-          left: 12,
-          right: 12,
-        }}
-      >
-        <CartesianGrid vertical={false} />
-        <XAxis
-          axisLine={false}
-          dataKey={xAxis}
-          tickFormatter={(value) => value}
-          tickLine={false}
-          tickMargin={8}
-        />
-        <YAxis axisLine={false} tickFormatter={(value) => value} tickLine={false} tickMargin={8} />
-        {/* <ChartTooltip
-          cursor={false}
-          wrapperClassName="!tw-text-xl"
-          content={
-            <ChartTooltipContent labelClassName="!tw-text-2xl" itemProp="" />
-          }
-        /> */}
-        <Tooltip content={<CustomTooltip />} />
-        <defs>{linearGradients}</defs>
-        {areas}
-      </AreaChart>
-    </ChartContainer>
+    <>
+      <div className="">
+        <ChartContainer className="tw-h-[250px] sm:tw-h-[400px] tw-w-full" config={configKeys}>
+          <AreaChart
+            accessibilityLayer
+            data={data}
+            margin={{
+              left: 12,
+              right: 12,
+            }}
+          >
+            <CartesianGrid vertical={false} />
+            <XAxis
+              axisLine={false}
+              dataKey={xAxis}
+              tickFormatter={(value) => value}
+              tickLine={false}
+              tickMargin={8}
+            />
+            <YAxis
+              axisLine={false}
+              padding={{ top: 30 }}
+              tickFormatter={(value) => value}
+              tickLine={false}
+              tickMargin={8}
+            />
+            <Tooltip content={<CustomTooltip />} />
+            <defs>{linearGradients}</defs>
+            {areas}
+          </AreaChart>
+        </ChartContainer>
+      </div>
+    </>
   )
 }

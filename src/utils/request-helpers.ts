@@ -14,7 +14,7 @@ export const getIpAddress = (req: PayloadRequest) => {
 }
 
 export const getDomain = (req: PayloadRequest): string => {
-  return req.host || req.headers.get('x-forwarded-host') || ''
+  return req.host || req?.headers?.get('x-forwarded-host') || ''
 }
 
 export const getPathname = (req: PayloadRequest): string => {
@@ -23,7 +23,7 @@ export const getPathname = (req: PayloadRequest): string => {
 }
 
 export function getUserAgent(req: PayloadRequest) {
-  return req.headers.get('user-agent') || undefined
+  return req?.headers?.get('user-agent') || undefined
 }
 
 export function getDeviceType(userAgent: string) {
@@ -119,9 +119,9 @@ export function getUtmParams(req: PayloadRequest) {
 }
 
 export function getReferrerUrl(req: PayloadRequest) {
-  return req.headers.get('referer') || undefined
+  return req?.headers?.get('referer') || undefined
 }
 
 export function getCountry(req: PayloadRequest) {
-  return req.headers.get('x-vercel-ip-country') || undefined
+  return req?.headers?.get('x-vercel-ip-country') || undefined
 }

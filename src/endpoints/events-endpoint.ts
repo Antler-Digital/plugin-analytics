@@ -1,4 +1,4 @@
-import type { CollectionSlug, Endpoint } from 'payload'
+import type { Endpoint } from 'payload'
 
 import crypto from 'crypto'
 

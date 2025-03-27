@@ -27,6 +27,11 @@ export default [
   {
     rules: {
       'no-restricted-exports': 'off',
+      'perfectionist/sort-interfaces': 'off',
+      'perfectionist/sort-objects': 'off',
+      'perfectionist/sort-types': 'off',
+      'perfectionist/sort-imports': 'off',
+      'perfectionist/sort-named-imports': 'off',
     },
   },
   {

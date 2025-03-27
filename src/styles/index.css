@@ -351,6 +351,10 @@ button:where([class*='tw-']),
   margin-top: 1rem;
 }
 
+.tw-block {
+  display: block;
+}
+
 .tw-flex {
   display: flex;
 }
@@ -361,6 +365,10 @@ button:where([class*='tw-']),
 
 .tw-grid {
   display: grid;
+}
+
+.tw-hidden {
+  display: none;
 }
 
 .tw-aspect-video {
@@ -1315,6 +1323,18 @@ button:where([class*='tw-']),
 }
 
 @media (min-width: 640px) {
+  .sm\:tw-block {
+    display: block;
+  }
+
+  .sm\:tw-hidden {
+    display: none;
+  }
+
+  .sm\:tw-h-\[400px\] {
+    height: 400px;
+  }
+
   .sm\:tw-h-auto {
     height: auto;
   }

@@ -42,17 +42,6 @@ export const analyticsPlugin =
     config.admin = {
       ...(config.admin || {}),
 
-      // Add additional admin config here
-
-      // if (!config.admin.components.views) {
-      //   config.admin.components.views = {}
-      // }
-
-      // config.admin.components.views.analyticsDashboard = {
-      //   Component: `payload-plugin-analytics/rsc#AnalyticsDashboard`,
-      //   path: '/analytics',
-      // }
-
       components: {
         ...(config.admin?.components || {}),
 

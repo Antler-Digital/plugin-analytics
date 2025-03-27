@@ -10,7 +10,7 @@ const headers = { 'Content-Type': 'application/json' }
 
 function getDbUrl(payload: BasePayload): string {
   if ('url' in payload.db && payload.db.url) {
-    return payload.db.url as string
+    return payload.db.url
   }
   throw new Error('No database URL found')
 }
@@ -38,7 +38,7 @@ export async function getWebpageViews(payload: BasePayload, collection: Collecti
 
 export async function getUniqueVisitors(payload: BasePayload, collection: CollectionSlug) {
   try {
-    const _collection = await getCollection(payload, collection)
+    const _collection = getCollection(payload, collection)
 
     const aggregate = await _collection
       .aggregate([

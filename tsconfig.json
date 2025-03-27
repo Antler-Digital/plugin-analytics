@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
+    ],
     "rootDir": "./",
     "allowJs": true,
     "skipLibCheck": true,
@@ -22,5 +26,13 @@
       }
     ]
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.json", "./dev/next-env.d.ts"]
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./src/**/*.json",
+    "./dev/next-env.d.ts",
+    "./src/**/tests/*.spec.ts",
+    "./dev/payload.config.ts",
+    "./dev/helpers/NextRESTClient.ts",
+  ]
 }

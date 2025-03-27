@@ -172,6 +172,7 @@ export class DashboardStats {
       map.set(item.referrer_url, (map.get(item.referrer_url) || 0) + 1)
     })
 
+
     return Array.from(map.entries())
       .map(([referrer, value]) => {
         let domain = ''

@@ -42,7 +42,9 @@
     "lint:fix": "eslint ./src --fix",
     "prebuild": "pnpm clean",
     "prepublishOnly": "pnpm clean && pnpm build",
-    "test": "echo 'test'",
+    "test": "echo \"Tests soon to be implemented\"",
+    "test:run": "node --import=tsx --test --no-warnings --test-timeout 10000 ./src/tests/*.spec.ts",
+    "test:watch": "node --import=tsx --test --watch ./src/tests/*.spec.ts",
     "release": "pnpm build && changeset version && changeset publish",
     "prepare": "husky",
     "cz": "git-cz"
@@ -57,6 +59,7 @@
     "@tanstack/react-table": "^8.21.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
     "esbuild": "^0.25.0",
     "lucide-react": "^0.475.0",
     "mongodb": "^6.13.0",
@@ -68,7 +71,8 @@
     "recharts": "^2.15.1",
     "swr": "^2.3.2",
     "tailwind-merge": "^3.0.1",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.3"
   },
   "devDependencies": {
     "@changesets/cli": "^2.28.0",
@@ -97,7 +101,7 @@
     "graphql": "^16.8.1",
     "husky": "^9.1.7",
     "jest": "29.7.0",
-    "mongodb-memory-server": "^10.1.2",
+    "mongodb-memory-server": "^8.15.1",
     "open": "^10.1.0",
     "payload": "3.17.1",
     "prettier": "^3.4.2",

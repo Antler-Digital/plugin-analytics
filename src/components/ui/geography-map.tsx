@@ -6,6 +6,7 @@ import { ComposableMap, Geographies, Geography as GeographyComponent } from 'rea
 import countriesData from '../../data/countries.json' with { type: 'json' }
 import localData from '../../data/country-code-map.json' with { type: 'json' }
 import useHtmlTheme from '../../hooks/useHtmlTheme.js'
+import { useScreenDimensions } from '../../hooks/useScreenDimensions.js'
 // Use a more reliable GeoJSON source
 
 type CountryData = {
@@ -34,6 +35,8 @@ const exampleCountryData: CountryData[] = [
 
 const GeographyMap = ({ countryData = exampleCountryData }: { countryData: CountryData[] }) => {
   const theme = useHtmlTheme()
+  const { isMobile } = useScreenDimensions()
+
   const isDarkMode = theme !== 'light'
   const [tooltipContent, setTooltipContent] = useState<{
     text: string
@@ -79,7 +82,7 @@ const GeographyMap = ({ countryData = exampleCountryData }: { countryData: Count
   }
 
   return (
-    <div className="tw-w-full tw-h-[400px] tw-relative" ref={mapRef}>
+    <div className="tw-w-full tw-h-[250px] sm:tw-h-[400px] tw-relative" ref={mapRef}>
       {tooltipContent && (
         <div
           className="tw-absolute tw-z-10 tw-px-2 tw-py-1 tw-text-sm tw-text-white tw-bg-black tw-rounded-md tw-pointer-events-none tw-whitespace-nowrap"
@@ -93,7 +96,7 @@ const GeographyMap = ({ countryData = exampleCountryData }: { countryData: Count
       )}
       {/* @ts-ignore */}
       <ComposableMap
-        height={400}
+        height={isMobile ? 200 : 400}
         projectionConfig={{
           center: [0, 0],
           rotate: [0, 0, 0],

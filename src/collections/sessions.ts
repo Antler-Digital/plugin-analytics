@@ -7,9 +7,9 @@ export function initSessionsCollection({
 }: AnalyticsPluginOptions): CollectionConfig {
   return {
     slug: `${slug}-sessions`,
-    // admin: {
-    //   hidden: true,
-    // },
+    admin: {
+      hidden: true,
+    },
     fields: [
       {
         name: 'ip_hash',

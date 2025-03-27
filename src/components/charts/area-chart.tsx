@@ -101,7 +101,7 @@ export function AreaChartGraph({ data, xAxis }: { data: any[]; xAxis: string }) 
             />
             <YAxis
               axisLine={false}
-              padding={{ top: 30 }}
+              padding={{ top: 40 }}
               tickFormatter={(value) => value}
               tickLine={false}
               tickMargin={8}

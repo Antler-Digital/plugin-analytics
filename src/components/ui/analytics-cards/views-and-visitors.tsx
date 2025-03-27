@@ -54,6 +54,16 @@ export function ViewsAndVisitorsCard({
         }
         className="tw-w-full"
         content={<AreaChartGraph data={data} xAxis={xAxis} />}
+        info={{
+          title: 'Page Views & Visitors',
+          body: (
+            <div>
+              A time-series visualization comparing page views and unique visitors over time. This
+              chart helps identify traffic patterns, peak usage times, and the relationship between
+              total views and unique visitors, useful for content scheduling and capacity planning
+            </div>
+          ),
+        }}
         title={`Page Views and Visitors ${dateRangeLabel}`}
       />
     )

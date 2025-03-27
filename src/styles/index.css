@@ -351,10 +351,6 @@ button:where([class*='tw-']),
   margin-top: 1rem;
 }
 
-.tw-block {
-  display: block;
-}
-
 .tw-flex {
   display: flex;
 }
@@ -365,10 +361,6 @@ button:where([class*='tw-']),
 
 .tw-grid {
   display: grid;
-}
-
-.tw-hidden {
-  display: none;
 }
 
 .tw-aspect-video {
@@ -415,10 +407,6 @@ button:where([class*='tw-']),
   height: 250px;
 }
 
-.tw-h-\[400px\] {
-  height: 400px;
-}
-
 .tw-h-\[489px\] {
   height: 489px;
 }
@@ -433,6 +421,14 @@ button:where([class*='tw-']),
 
 .tw-h-px {
   height: 1px;
+}
+
+.tw-h-6 {
+  height: 1.5rem;
+}
+
+.tw-h-5 {
+  height: 1.25rem;
 }
 
 .tw-max-h-96 {
@@ -487,6 +483,18 @@ button:where([class*='tw-']),
   width: 100%;
 }
 
+.tw-w-72 {
+  width: 18rem;
+}
+
+.tw-w-6 {
+  width: 1.5rem;
+}
+
+.tw-w-5 {
+  width: 1.25rem;
+}
+
 .tw-min-w-\[8rem\] {
   min-width: 8rem;
 }
@@ -497,6 +505,14 @@ button:where([class*='tw-']),
 
 .tw-max-w-4xl {
   max-width: 56rem;
+}
+
+.tw-max-w-72 {
+  max-width: 18rem;
+}
+
+.\!tw-max-w-72 {
+  max-width: 18rem !important;
 }
 
 .tw-flex-1 {
@@ -513,6 +529,10 @@ button:where([class*='tw-']),
 
 .tw-caption-bottom {
   caption-side: bottom;
+}
+
+.tw-origin-\[--radix-popover-content-transform-origin\] {
+  transform-origin: var(--radix-popover-content-transform-origin);
 }
 
 .tw-translate-x-\[-50\%\] {
@@ -708,6 +728,10 @@ button:where([class*='tw-']),
 
 .tw-border-dashed {
   border-style: dashed;
+}
+
+.tw-border-none {
+  border-style: none;
 }
 
 .tw-border-\[--color-border\] {
@@ -971,11 +995,6 @@ button:where([class*='tw-']),
 
 .tw-font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-
-.\!tw-text-2xl {
-  font-size: 1.5rem !important;
-  line-height: 2rem !important;
 }
 
 .\!tw-text-xl {
@@ -1323,14 +1342,6 @@ button:where([class*='tw-']),
 }
 
 @media (min-width: 640px) {
-  .sm\:tw-block {
-    display: block;
-  }
-
-  .sm\:tw-hidden {
-    display: none;
-  }
-
   .sm\:tw-h-\[400px\] {
     height: 400px;
   }

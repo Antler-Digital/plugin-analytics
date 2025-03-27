@@ -9,9 +9,9 @@ export function initEventsCollection(pluginOptions: AnalyticsPluginOptions): Col
   return {
     slug: `${slug}-events`,
 
-    // admin: {
-    //   hidden: true,
-    // },
+    admin: {
+      hidden: true,
+    },
     endpoints: [GetEvents(pluginOptions), GetStats(pluginOptions)],
     fields: [
       {

@@ -91,7 +91,7 @@ export async function AnalyticsDashboard({
           <div className="tw-flex tw-flex-col tw-gap-4 tw-pb-10">
             <div className="tw-flex tw-flex-col tw-w-full tw-space-y-4">
               <FlexRow>
-                <h1 className="tw-text-2xl tw-font-bold tw-text-red-600">Analytics Dashboard</h1>
+                <h1 className="tw-text-2xl tw-font-bold">Analytics Dashboard</h1>
                 <SelectDateRange maxAgeInDays={pluginOptions.maxAgeInDays} />
               </FlexRow>
             </div>

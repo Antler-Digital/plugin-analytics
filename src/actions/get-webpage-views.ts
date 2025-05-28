@@ -9,7 +9,7 @@ import { UTMTracking } from '../utils/utm-tracking.js'
 const headers = { 'Content-Type': 'application/json' }
 
 function getDbUrl(payload: BasePayload): string {
-  if ('url' in payload.db && payload.db.url) {
+  if ('url' in payload.db && typeof payload.db.url === 'string' && payload.db.url) {
     return payload.db.url
   }
   throw new Error('No database URL found')

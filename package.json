@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-analytics",
-  "version": "1.0.53",
+  "version": "1.0.54",
   "description": "A blank template to get started with Payload 3.0",
   "license": "MIT",
   "type": "module",
@@ -31,6 +31,8 @@
     "build:swc": "swc ./src -d ./dist --config-file .swcrc --strip-leading-paths",
     "build:types": "tsc --outDir dist --rootDir ./src",
     "build:styles": "tailwindcss -i ./src/styles/input.css -o ./src/styles/index.css",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
     "clean": "rimraf {dist,*.tsbuildinfo}",
     "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png,json}\" dist/",
     "dev": "concurrently \"pnpm dev:styles\" \"payload run ./dev/server.ts\"",

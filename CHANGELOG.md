@@ -1,5 +1,11 @@
 # payload-plugin-analytics
 
+## 1.0.56
+
+### Patch Changes
+
+- cebafb5: test patch update
+
 ## 1.0.55
 
 ### Patch Changes

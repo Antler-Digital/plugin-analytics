@@ -49,7 +49,7 @@
     "test:watch": "node --import=tsx --test --watch ./src/tests/*.spec.ts",
     "release": "pnpm build && changeset version && changeset publish",
     "prepare": "husky",
-    "cz": "git-cz"
+    "cz": "echo \"Use pnpm changeset to create a new version\""
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",

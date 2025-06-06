@@ -45,8 +45,7 @@
     "prebuild": "pnpm clean",
     "prepublishOnly": "pnpm clean && pnpm build",
     "test": "jest",
-    "test:run": "node --import=tsx --test --no-warnings --test-timeout 10000 ./src/tests/*.spec.ts",
-    "test:watch": "node --import=tsx --test --watch ./src/tests/*.spec.ts",
+    "test:watch": "jest --watch",
     "release": "pnpm build && changeset version && changeset publish",
     "prepare": "husky",
     "cz": "echo \"Use pnpm changeset to create a new version\""
@@ -119,7 +118,7 @@
   },
   "engines": {
     "node": "^18.20.2 || >=20.9.0",
-    "pnpm": "^9"
+    "pnpm": "^10"
   },
   "publishConfig": {
     "exports": {

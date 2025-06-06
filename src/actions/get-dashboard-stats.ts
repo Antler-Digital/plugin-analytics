@@ -190,11 +190,13 @@ export class DashboardStats {
     return Array.from(map.entries())
       .map(([referrer, value]) => {
         let domain = ''
-        try {
-          const url = new URL(referrer)
-          domain = `${url.protocol}//${url.host}`
-        } catch (error) {
-          console.error(error)
+        if (referrer.includes('http')) {
+          try {
+            const url = new URL(referrer)
+            domain = `${url.protocol}//${url.host}`
+          } catch (error) {
+            console.error(error)
+          }
         }
 
         return {

@@ -181,11 +181,15 @@ export async function getTopPages(
   all.docs.forEach((doc) => {
     uniquePaths.set(doc.path as string, (uniquePaths.get(doc.path as string) || 0) + 1)
   })
+
+  const page = parseInt(opts.page || '1', 10) || 1
+  const limit = parseInt(opts.limit || '1000', 10) || 1000
+
+  const sliceFrom = (page - 1) * limit
+  const sliceTo = page * limit
+
   const docs = Array.from(uniquePaths.entries())
-    .slice(
-      (parseInt(opts.page || '1', 10) - 1) * parseInt(opts.limit || '1000', 10),
-      parseInt(opts.page || '1', 10) * parseInt(opts.limit || '1000', 10),
-    )
+    .slice(sliceFrom, sliceTo)
     .map(([path, count]) => ({
       path,
       value: count,
@@ -194,9 +198,9 @@ export async function getTopPages(
   return new Response(
     JSON.stringify({
       docs,
-      page: parseInt(opts.page || '1', 10),
+      page,
       total: all.totalDocs,
-      totalPages: Math.ceil(docs.length / parseInt(opts.limit || '1000', 10)),
+      totalPages: Math.ceil(all.totalDocs / limit),
     }),
     {
       headers,
@@ -237,11 +241,11 @@ export async function getUTMTracking(
       .map(([campaign, count]) => {
         const utm = UTMTracking.keyToUTM(campaign)
         return {
-          campaign: falsyString(utm?.campaign),
-          content: falsyString(utm?.content),
-          medium: falsyString(utm?.medium),
-          source: falsyString(utm?.source),
-          term: falsyString(utm?.term),
+          campaign: falsyString(utm?.campaign) || null,
+          content: falsyString(utm?.content) || null,
+          medium: falsyString(utm?.medium) || null,
+          source: falsyString(utm?.source) || null,
+          term: falsyString(utm?.term) || null,
           visitors: count,
         }
       })

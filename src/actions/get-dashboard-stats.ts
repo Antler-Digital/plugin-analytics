@@ -77,6 +77,9 @@ export class DashboardStats {
   get browsers() {
     const map = new Map<string, number>()
     this.data.forEach((item) => {
+      if (!item?.browser) {
+        return
+      }
       map.set(item.browser, (map.get(item.browser) || 0) + 1)
     })
 
@@ -93,6 +96,9 @@ export class DashboardStats {
   get devices() {
     const map = new Map<string, number>()
     this.data.forEach((item) => {
+      if (!item?.device_type) {
+        return
+      }
       map.set(item.device_type, (map.get(item.device_type) || 0) + 1)
     })
 
@@ -116,6 +122,9 @@ export class DashboardStats {
     // assume client has been on the site for last 30 minutes
     const liveLimit = new Date(Date.now() - MINUTES_AGO * 60 * 1000).toISOString()
     this.data.forEach((item) => {
+      if (!item?.createdAt) {
+        return
+      }
       if (item.createdAt > liveLimit) {
         visitors.add(item.ip_hash)
       }
@@ -128,6 +137,9 @@ export class DashboardStats {
   get operating_systems() {
     const map = new Map<string, number>()
     this.data.forEach((item) => {
+      if (!item?.os) {
+        return
+      }
       map.set(item.os, (map.get(item.os) || 0) + 1)
     })
 
@@ -145,6 +157,9 @@ export class DashboardStats {
   get top_pages() {
     const map = new Map<string, number>()
     this.data.forEach((item) => {
+      if (!item?.path) {
+        return
+      }
       map.set(item.path, (map.get(item.path) || 0) + 1)
     })
 
@@ -165,13 +180,12 @@ export class DashboardStats {
     const map = new Map<string, number>()
     this.data.forEach((item) => {
       // make sure the referrer_url is a valid URL
-      if (!item.referrer_url) {
+      if (!item?.referrer_url) {
         return
       }
 
       map.set(item.referrer_url, (map.get(item.referrer_url) || 0) + 1)
     })
-
 
     return Array.from(map.entries())
       .map(([referrer, value]) => {
@@ -197,6 +211,9 @@ export class DashboardStats {
     const set = new Set<string>()
     const rangeSet = new Set<string>()
     this.data.forEach((item) => {
+      if (!item?.ip_hash) {
+        return
+      }
       set.add(item.ip_hash)
     })
     this.rangeData.forEach((item) => {
@@ -215,6 +232,9 @@ export class DashboardStats {
       { campaign: string; medium: string; source: string; visitors: number }
     >()
     this.data.forEach((item) => {
+      if (!item?.session_id) {
+        return
+      }
       if (item.session_id?.utm?.campaign) {
         const key = `${item.session_id.utm.campaign}-${item.session_id.utm.medium}-${item.session_id.utm.source}-${item.session_id.utm.term}-${item.session_id.utm.content}`
 
@@ -271,6 +291,9 @@ export class DashboardStats {
       }
 
       this.data.forEach((item) => {
+        if (!item?.createdAt) {
+          return
+        }
         const itemDay = DashboardStats.getDayFromDate(new Date(item.createdAt))
         if (map.has(itemDay)) {
           const _item = map.get(itemDay)
@@ -282,6 +305,9 @@ export class DashboardStats {
       })
     } else {
       this.data.forEach((item) => {
+        if (!item?.createdAt) {
+          return
+        }
         const createdAt = new Date(item.createdAt).toISOString().split('T')[0]
 
         if (map.has(createdAt)) {
@@ -308,6 +334,9 @@ export class DashboardStats {
   get visitor_geography() {
     const countryMap = new Map<string, number>()
     this.data.forEach((item) => {
+      if (!item?.country) {
+        return
+      }
       countryMap.set(item.country, (countryMap.get(item.country) || 0) + 1)
     })
 

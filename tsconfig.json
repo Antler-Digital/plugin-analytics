@@ -32,7 +32,6 @@
     "./src/**/*.json"
   ],
   "exclude": [
-    "./src/tests/**/*",
     "./dev/**/*",
     "node_modules"
   ]

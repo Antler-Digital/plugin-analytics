@@ -41,7 +41,7 @@ const customJestConfig = {
     '^.+\\.(t|j)sx?$': ['@swc/jest'],
   },
   verbose: true,
-  testMatch: ['<rootDir>/**/*int.spec.ts'],
+  testMatch: ['<rootDir>/src/**/*.spec.ts'],
   moduleNameMapper: {
     '\\.(css|scss)$': '<rootDir>/helpers/mocks/emptyModule.js',
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
@@ -49,5 +49,4 @@ const customJestConfig = {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
 }
-
 export default customJestConfig

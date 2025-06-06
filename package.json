@@ -44,7 +44,7 @@
     "lint:fix": "eslint ./src --fix",
     "prebuild": "pnpm clean",
     "prepublishOnly": "pnpm clean && pnpm build",
-    "test": "echo \"Tests soon to be implemented\"",
+    "test": "jest",
     "test:run": "node --import=tsx --test --no-warnings --test-timeout 10000 ./src/tests/*.spec.ts",
     "test:watch": "node --import=tsx --test --watch ./src/tests/*.spec.ts",
     "release": "pnpm build && changeset version && changeset publish",

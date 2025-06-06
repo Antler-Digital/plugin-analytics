@@ -1,11 +1,7 @@
-/* eslint-disable no-console */
-import { describe, it } from 'node:test'
-import assert from 'node:assert'
-
 import { DashboardStats } from '../actions/get-dashboard-stats.js'
 import type { DateRange } from '../types.js'
 
-await describe('DashboardStats', async () => {
+describe('DashboardStats - Basic Tests', () => {
   const mockData = [
     {
       browser: 'Chrome',
@@ -48,82 +44,82 @@ await describe('DashboardStats', async () => {
     date_from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
   }
 
-  await it('should correctly parse browsers data', () => {
+  it('should correctly parse browsers data', () => {
     const stats = new DashboardStats(mockData, mockRangeData, mockOpts)
     const browsers = stats.browsers
 
-    assert.strictEqual(browsers.length, 2)
-    assert.strictEqual(browsers[0].browser, 'chrome')
-    assert.strictEqual(browsers[1].browser, 'firefox')
-    assert.strictEqual(browsers[0].visitors, 1)
+    expect(browsers.length).toBe(2)
+    expect(browsers[0].browser).toBe('chrome')
+    expect(browsers[1].browser).toBe('firefox')
+    expect(browsers[0].visitors).toBe(1)
   })
 
-  await it('should correctly parse devices data', () => {
+  it('should correctly parse devices data', () => {
     const stats = new DashboardStats(mockData, mockRangeData, mockOpts)
     const devices = stats.devices
 
-    assert.strictEqual(devices.length, 2)
-    assert.strictEqual(devices[0].desktop, 1)
-    assert.strictEqual(devices[1].mobile, 1)
+    expect(devices.length).toBe(2)
+    expect(devices[0].desktop).toBe(1)
+    expect(devices[1].mobile).toBe(1)
   })
 
-  await it('should correctly calculate live visitors', () => {
+  it('should correctly calculate live visitors', () => {
     const stats = new DashboardStats(mockData, mockRangeData, mockOpts)
     const liveVisitors = stats.live_visitors
 
-    assert.strictEqual(liveVisitors.value, 2)
+    expect(liveVisitors.value).toBe(2)
   })
 
-  await it('should correctly parse top pages', () => {
+  it('should correctly parse top pages', () => {
     const stats = new DashboardStats(mockData, mockRangeData, mockOpts)
     const topPages = stats.top_pages
 
-    assert.strictEqual(topPages.length, 2)
-    assert.strictEqual(topPages[0].path, '/home')
-    assert.strictEqual(topPages[1].path, '/about')
+    expect(topPages.length).toBe(2)
+    expect(topPages[0].path).toBe('/home')
+    expect(topPages[1].path).toBe('/about')
   })
 
-  await it('should correctly parse top referrers', () => {
+  it('should correctly parse top referrers', () => {
     const stats = new DashboardStats(mockData, mockRangeData, mockOpts)
     const referrers = stats.top_referrers
 
-    assert.strictEqual(referrers.length, 2)
-    assert.strictEqual(referrers[0].domain, 'https://google.com')
-    assert.strictEqual(referrers[1].domain, 'https://facebook.com')
+    expect(referrers.length).toBe(2)
+    expect(referrers[0].domain).toBe('https://google.com')
+    expect(referrers[1].domain).toBe('https://facebook.com')
   })
 
-  await it('should correctly calculate unique visitors', () => {
+  it('should correctly calculate unique visitors', () => {
     const stats = new DashboardStats(mockData, mockRangeData, mockOpts)
     const uniqueVisitors = stats.unique_visitors
 
-    assert.strictEqual(uniqueVisitors.value, 2)
-    assert.strictEqual(typeof uniqueVisitors.change, 'number')
+    expect(uniqueVisitors.value).toBe(2)
+    expect(typeof uniqueVisitors.change).toBe('number')
   })
 
-  await it('should correctly parse UTM tracking data', () => {
+  it('should correctly parse UTM tracking data', () => {
     const stats = new DashboardStats(mockData, mockRangeData, mockOpts)
     const utmTracking = stats.utm_tracking
 
-    assert.strictEqual(utmTracking.length, 1)
-    assert.strictEqual(utmTracking[0].campaign, 'test')
-    assert.strictEqual(utmTracking[0].medium, 'social')
-    assert.strictEqual(utmTracking[0].source, 'twitter')
+    expect(utmTracking.length).toBe(1)
+    expect(utmTracking[0].campaign).toBe('test')
+    expect(utmTracking[0].medium).toBe('social')
+    expect(utmTracking[0].source).toBe('twitter')
   })
 
-  await it('should correctly parse visitor geography', () => {
+  it('should correctly parse visitor geography', () => {
     const stats = new DashboardStats(mockData, mockRangeData, mockOpts)
     const geography = stats.visitor_geography
 
-    assert.strictEqual(geography.length, 2)
-    assert.strictEqual(geography[0].countryCode, 'US')
-    assert.strictEqual(geography[1].countryCode, 'UK')
+    expect(geography.length).toBe(2)
+    expect(geography[0].countryCode).toBe('US')
+    expect(geography[1].countryCode).toBe('UK')
   })
 
-  await it('should correctly calculate webpage views', () => {
+  it('should correctly calculate webpage views', () => {
     const stats = new DashboardStats(mockData, mockRangeData, mockOpts)
     const views = stats.webpage_views
 
-    assert.strictEqual(views.value, 2)
-    assert.strictEqual(typeof views.change, 'number')
+    expect(views.value).toBe(2)
+    expect(typeof views.change).toBe('number')
   })
 })

@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - "packages/plugin-calendar/**"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -35,11 +33,15 @@ jobs:
 
       - name: Install pnpm
         run: |
-          npm install -g pnpm@9
+          npm install -g pnpm@10
 
       - name: Install dependencies
         run: |
           pnpm install
+
+      - name: Install test
+        run: |
+          pnpm test
 
       - name: Build
         run: |

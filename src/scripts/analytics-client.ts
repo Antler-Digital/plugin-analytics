@@ -18,7 +18,7 @@ class Analytics {
 
   constructor(options: AnalyticsOptions = {}) {
     // Default endpoint based on script src or fallback to /api/events
-    const scriptEl = document.querySelector('script[src*="analytics.min.js"]') as HTMLScriptElement
+    const scriptEl = document?.querySelector('script[src*="analytics.min.js"]') as HTMLScriptElement
     const defaultEndpoint = scriptEl?.src.replace('analytics.min.js', 'api/events')
 
     this.endpoint = options.endpoint || defaultEndpoint || '/api/events'
@@ -76,7 +76,7 @@ class Analytics {
     )
 
     // Only observe body and limit to specific changes
-    const body = document.querySelector('body')
+    const body = document?.querySelector('body')
     if (body) {
       observer.observe(body, {
         attributes: false,
@@ -106,7 +106,7 @@ class Analytics {
       }
       pixel.src = url
       pixel.style.display = 'none'
-      document.body.appendChild(pixel)
+      document?.body.appendChild(pixel)
     })
   }
 
@@ -137,8 +137,8 @@ class Analytics {
     })
 
     // Track when user switches tabs
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden') {
+    document?.addEventListener('visibilitychange', () => {
+      if (document?.visibilityState === 'hidden') {
         void this.trackSessionEnd()
       }
     })
@@ -189,7 +189,7 @@ class Analytics {
         eventsUrl.searchParams.append('path', window.location.pathname)
 
         // Only add referrer if it's from a different domain
-        const referrer = document.referrer
+        const referrer = document?.referrer
         if (referrer && !referrer.includes(window.location.hostname)) {
           eventsUrl.searchParams.append('ref', referrer)
         }

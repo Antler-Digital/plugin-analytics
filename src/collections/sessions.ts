@@ -57,6 +57,10 @@ export function initSessionsCollection({
         type: 'number',
       },
       {
+        name: 'referrer_url',
+        type: 'text',
+      },
+      {
         name: 'utm',
         type: 'group',
         fields: [

@@ -33,7 +33,7 @@ export async function createSession(
   data: CreateSessionData,
 ) {
   const { collectionSlug: slug } = pluginOptions
-  const collection = slug as CollectionSlug
+  const collection = `${slug}-sessions`
   return await payload.create({
     // @ts-ignore
     collection,

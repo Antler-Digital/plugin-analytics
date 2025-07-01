@@ -44,7 +44,12 @@ export default buildConfig({
   // onInit: async (payload) => {
   //   await seed(payload)
   // },
-  plugins: [analyticsPlugin()],
+  plugins: [
+    analyticsPlugin({
+      maxAgeInDays: 90,
+      collectionSlug: 'analytics-v2',
+    }),
+  ],
   secret: process.env.PAYLOAD_SECRET || 'test-secret_key',
   sharp,
   typescript: {

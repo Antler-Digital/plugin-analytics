@@ -27,11 +27,6 @@ export function initEventsCollection(pluginOptions: AnalyticsPluginOptions): Col
         required: true,
       },
       {
-        name: 'domain',
-        type: 'text',
-        required: true,
-      },
-      {
         name: 'path',
         type: 'text',
         required: true,
@@ -41,34 +36,18 @@ export function initEventsCollection(pluginOptions: AnalyticsPluginOptions): Col
         type: 'text',
       },
       {
-        name: 'referrer_url',
-        type: 'text',
-      },
-      {
-        name: 'ip_hash',
-        type: 'text',
+        name: 'event_type',
+        type: 'select',
+        options: ['page_view', 'click', 'form_submit', 'custom'],
+        defaultValue: 'page_view',
         required: true,
       },
       {
-        name: 'user_agent',
-        type: 'text',
-      },
-      {
-        name: 'device_type',
-        type: 'select',
-        options: ['desktop', 'mobile', 'tablet'],
-      },
-      {
-        name: 'os',
-        type: 'text',
-      },
-      {
-        name: 'browser',
-        type: 'text',
-      },
-      {
-        name: 'country',
-        type: 'text',
+        name: 'event_data',
+        type: 'json',
+        admin: {
+          description: 'Additional data for custom events',
+        },
       },
     ],
   }

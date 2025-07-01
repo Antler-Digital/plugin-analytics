@@ -34,6 +34,19 @@ export const onInitExtension = (pluginOptions: AnalyticsPluginOptions, payload: 
     // Copy analytics.min.js to public folder
     fs.copyFileSync(sourceFile, destFile)
 
+    // if in dev mode in this project, dev/public must also exist.
+    // We need the script to be in the dev/public directory so that
+    // the pixel tracker on other localhosts, if in use, can find it.
+    if (process.env.NODE_ENV === 'development') {
+      const devPublicDir = path.resolve(process.cwd(), 'dev/public')
+      if (!fs.existsSync(devPublicDir)) {
+        fs.mkdirSync(devPublicDir, { recursive: true })
+      }
+
+      const devDestFile = path.join(devPublicDir, 'analytics.min.js')
+      fs.copyFileSync(sourceFile, devDestFile)
+    }
+
     // Also copy source map if it exists
     const sourceMapFile = `${sourceFile}.map`
     const destMapFile = `${destFile}.map`

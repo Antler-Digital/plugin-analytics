@@ -7,6 +7,7 @@ import path from 'path'
 import { fileURLToPath, parse } from 'url'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
+const port = process.env.PORT || 3000
 
 const opts: NextServerOptions = {
   dev: true,
@@ -19,11 +20,11 @@ const handle = app.getRequestHandler()
 
 await app.prepare()
 
-await open(`http://localhost:3000/admin`)
+await open(`http://localhost:${port}/admin`)
 
 const server = createServer((req, res) => {
   const parsedUrl = parse(req.url!, true)
   void handle(req, res, parsedUrl)
 })
 
-server.listen(3000)
+server.listen(port)

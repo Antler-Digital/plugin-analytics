@@ -13,15 +13,15 @@ export const analyticsPlugin =
     const config = { ...incomingConfig }
 
     const safePluginOptions: Required<AnalyticsPluginOptions> = {
-      collectionSlug: 'analytics',
-      dashboardLinkLabel: 'Analytics',
-      dashboardSlug: '/analytics',
-      isServerless: true,
-      maxAgeInDays: 60,
+      collectionSlug: pluginOptions.collectionSlug || 'analytics',
+      dashboardLinkLabel: pluginOptions.dashboardLinkLabel || 'Analytics',
+      dashboardSlug: pluginOptions.dashboardSlug || '/analytics',
+      isServerless: pluginOptions.isServerless || true,
+      maxAgeInDays: pluginOptions.maxAgeInDays || 60,
       ...pluginOptions,
     }
 
-    const { dashboardLinkLabel, dashboardSlug, maxAgeInDays } = safePluginOptions
+    const { dashboardSlug, maxAgeInDays } = safePluginOptions
 
     if (dashboardSlug.startsWith('/')) {
       safePluginOptions.dashboardSlug = dashboardSlug.replace(/^\//, '')

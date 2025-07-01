@@ -49,7 +49,8 @@
     "test:watch": "jest --watch",
     "release": "pnpm build && changeset version && changeset publish",
     "prepare": "husky",
-    "cz": "echo \"Use pnpm changeset to create a new version\""
+    "cz": "echo \"Use pnpm changeset to create a new version\"",
+    "minify": "pnpm exec tsx src/scripts/minify-script.ts"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",

@@ -403,7 +403,7 @@ describe('get-webpage-views', () => {
       expect(data.docs).toContainEqual({ browser: 'Chrome', value: 2 })
       expect(data.docs).toContainEqual({ browser: 'Firefox', value: 1 })
       expect(data.docs).toContainEqual({ browser: 'Safari', value: 1 })
-      expect(data.total).toBe(3)
+      expect(data.total).toBe(4)
     })
 
     it('should handle browser statistics errors', async () => {

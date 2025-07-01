@@ -14,6 +14,14 @@ export async function buildScript() {
       fs.mkdirSync(publicDir, { recursive: true })
     }
 
+    // if in dev mode in this project, dev/public must also exist
+    if (process.env.NODE_ENV === 'development') {
+      const devPublicDir = resolve(__dirname, '../../dev/public')
+      if (!fs.existsSync(devPublicDir)) {
+        fs.mkdirSync(devPublicDir, { recursive: true })
+      }
+    }
+
     await esbuild.build({
       bundle: true,
       entryPoints: [resolve(__dirname, './analytics-client.ts')],

@@ -29,13 +29,14 @@
   "scripts": {
     "build": "pnpm build:styles && pnpm copyfiles && pnpm build:types && pnpm build:swc",
     "build:swc": "swc ./src -d ./dist --config-file .swcrc --strip-leading-paths",
+    "build:swc:watch": "swc ./src -d ./dist --config-file .swcrc --strip-leading-paths --watch",
     "build:types": "tsc --outDir dist --rootDir ./src",
     "build:styles": "tailwindcss -i ./src/styles/input.css -o ./src/styles/index.css",
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "clean": "rimraf {dist,*.tsbuildinfo}",
     "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png,json}\" dist/",
-    "dev": "concurrently \"pnpm dev:styles\" \"payload run ./dev/server.ts\"",
+    "dev": "concurrently \"pnpm build:swc:watch\" \"pnpm dev:styles\" \"payload run ./dev/server.ts --watch \"",
     "dev:styles": "tailwindcss -i ./src/styles/input.css -o ./src/styles/index.css --watch",
     "dev:generate-importmap": "pnpm dev:payload generate:importmap",
     "dev:generate-types": "pnpm dev:payload generate:types",
@@ -62,7 +63,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.7",
-    "esbuild": "^0.25.0",
+    "esbuild": "^0.23.1",
     "lucide-react": "^0.475.0",
     "mongodb": "^6.13.0",
     "next": "15.1.5",
@@ -147,5 +148,6 @@
       "sharp"
     ]
   },
-  "registry": "https://registry.npmjs.org/"
+  "registry": "https://registry.npmjs.org/",
+  "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
 }

@@ -1,5 +1,14 @@
 # payload-plugin-analytics
 
+## 1.1.0
+
+### Minor Changes
+
+- 2ec8e58: added tests for dashboard-stats
+- 2ba3187: chore: add @jest/globals dependency and update pnpm-lock.yaml for Jest 30.0.0-beta.3
+- 1c44687: chore: update pnpm version to 10, add test installation step in release workflow
+- ea702a8: refactor: update test commands in package.json, enhance error handling in get-dashboard-stats and get-webpage-views, and add comprehensive tests for webpage views functionality
+
 ## 1.0.56
 
 ### Patch Changes

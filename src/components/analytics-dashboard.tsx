@@ -20,9 +20,12 @@ import { UTMTrackingCard } from './ui/analytics-cards/utm-tracking.js'
 import { ViewsAndVisitorsCard } from './ui/analytics-cards/views-and-visitors.js'
 import { VisitorGeographyCard } from './ui/analytics-cards/visitor-geography.js'
 import { SelectDateRange } from './ui/select-date-range.js'
+import { TriggerHourlyAggregationButton } from './ui/trigger-hourly-aggregation.js'
+import { TriggerDailyAggregationButton } from './ui/trigger-daily-aggregation.js'
 
 // import { redirect } from 'next/navigation';
 import type { AdminViewProps, BasePayload } from 'payload'
+import React from 'react'
 
 const FlexRow = ({ children, className }: { children: React.ReactNode; className?: string }) => (
   <div
@@ -92,6 +95,11 @@ export async function AnalyticsDashboard({
             <div className="tw-flex tw-flex-col tw-w-full tw-space-y-4">
               <FlexRow>
                 <h1 className="tw-text-2xl tw-font-bold">Analytics Dashboard</h1>
+                {/* Test aggregation buttons */}
+                <div className="tw-flex tw-gap-2">
+                  <TriggerHourlyAggregationButton pluginOptions={pluginOptions} />
+                  <TriggerDailyAggregationButton pluginOptions={pluginOptions} />
+                </div>
                 <SelectDateRange maxAgeInDays={pluginOptions.maxAgeInDays} />
               </FlexRow>
             </div>

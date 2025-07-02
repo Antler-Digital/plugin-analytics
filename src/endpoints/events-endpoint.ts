@@ -25,6 +25,7 @@ import {
   getUserAgent,
   getUtmParams,
 } from '../utils/request-helpers.js'
+import { runHourlyAggregation, runDailyAggregation } from '../job-queues/analytics-tasks.js'
 
 const headers: ResponseInit['headers'] = {
   'Content-Type': 'application/json',
@@ -213,5 +214,51 @@ export function GetStats(pluginOptions: AnalyticsPluginOptions): Endpoint {
     },
     method: 'get',
     path: '/stats/:widget',
+  }
+}
+
+export function TriggerAggregationEndpoint(pluginOptions: AnalyticsPluginOptions): Endpoint {
+  return {
+    handler: async (req) => {
+      try {
+        const payload = req.payload
+        const type = req.routeParams?.['type']
+        const now = new Date()
+
+        if (type === 'hourly') {
+          await runHourlyAggregation(payload, pluginOptions, {
+            date: now.toISOString(),
+            hour: now.getHours(),
+          })
+          return new Response(
+            JSON.stringify({ ok: true, message: 'Hourly aggregation triggered' }),
+            { status: 200, headers },
+          )
+        }
+
+        if (type === 'daily') {
+          await runDailyAggregation(payload, pluginOptions, { date: now.toISOString() })
+          return new Response(
+            JSON.stringify({ ok: true, message: 'Daily aggregation triggered' }),
+            { status: 200, headers },
+          )
+        }
+
+        return new Response(JSON.stringify({ ok: false, message: 'Invalid type' }), {
+          status: 400,
+          headers,
+        })
+      } catch (error) {
+        return new Response(
+          JSON.stringify({
+            ok: false,
+            message: error instanceof Error ? error.message : 'Internal server error',
+          }),
+          { status: 500, headers },
+        )
+      }
+    },
+    method: 'post',
+    path: '/trigger-aggregation/:type',
   }
 }

@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import type { AnalyticsPluginOptions } from '../types.js'
 
-import { GetEvents, GetStats } from '../endpoints/events-endpoint.js'
+import { GetEvents, GetStats, TriggerAggregationEndpoint } from '../endpoints/events-endpoint.js'
 
 export function initEventsCollection(pluginOptions: AnalyticsPluginOptions): CollectionConfig {
   const { collectionSlug: slug } = pluginOptions
@@ -12,7 +12,11 @@ export function initEventsCollection(pluginOptions: AnalyticsPluginOptions): Col
     admin: {
       hidden: true,
     },
-    endpoints: [GetEvents(pluginOptions), GetStats(pluginOptions)],
+    endpoints: [
+      GetEvents(pluginOptions),
+      GetStats(pluginOptions),
+      TriggerAggregationEndpoint(pluginOptions),
+    ],
     fields: [
       {
         name: 'timestamp',

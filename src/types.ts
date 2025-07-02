@@ -26,6 +26,17 @@ export type AnalyticsPluginOptions = {
    * @default 60
    */
   maxAgeInDays?: number
+  // Aggregation options
+  enableAggregations?: boolean
+  aggregationSchedule?: {
+    hourly?: string // cron expression, default: '0 * * * *'
+    daily?: string // cron expression, default: '0 2 * * *'
+    cleanup?: string // cron expression, default: '0 3 * * 0'
+  }
+  aggregationRetention?: {
+    hourly?: number // days to keep hourly data, default: 7
+    daily?: number // days to keep daily data, default: 90
+  }
 }
 
 export type DeviceType = 'desktop' | 'mobile' | 'tablet'

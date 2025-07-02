@@ -6,6 +6,11 @@ import { initEventsCollection } from './collections/events.js'
 import { initSessionsCollection } from './collections/sessions.js'
 import { EventsEndpoint } from './endpoints/events-endpoint.js'
 import { onInitExtension } from './utils/onInitExtension.js'
+import {
+  initHourlyAggregationsCollection,
+  initDailyAggregationsCollection,
+} from './collections/aggregations.js'
+import { getAnalyticsTasks } from './job-queues/analytics-tasks.js'
 
 export const analyticsPlugin =
   (pluginOptions: AnalyticsPluginOptions = {}) =>
@@ -18,6 +23,9 @@ export const analyticsPlugin =
       dashboardSlug: pluginOptions.dashboardSlug || '/analytics',
       isServerless: pluginOptions.isServerless || true,
       maxAgeInDays: pluginOptions.maxAgeInDays || 60,
+      enableAggregations: pluginOptions.enableAggregations ?? true,
+      aggregationSchedule: pluginOptions.aggregationSchedule || {},
+      aggregationRetention: pluginOptions.aggregationRetention || {},
       ...pluginOptions,
     }
 
@@ -29,6 +37,17 @@ export const analyticsPlugin =
 
     const eventsCollection = initEventsCollection(safePluginOptions)
     const sessionsCollection = initSessionsCollection(safePluginOptions)
+
+    // Register aggregation collections if enabled
+    let aggregationCollections: import('payload').CollectionConfig[] = []
+    let analyticsTasks: any[] = []
+    if (safePluginOptions.enableAggregations) {
+      aggregationCollections = [
+        initHourlyAggregationsCollection(safePluginOptions),
+        initDailyAggregationsCollection(safePluginOptions),
+      ]
+      analyticsTasks = getAnalyticsTasks(safePluginOptions)
+    }
 
     config.endpoints = [
       ...(config.endpoints || []),
@@ -79,7 +98,40 @@ export const analyticsPlugin =
 
     // initConfigJobs(config, safePluginOptions);
 
-    config.collections = [...(config.collections || []), eventsCollection, sessionsCollection]
+    config.collections = [
+      ...(config.collections || []),
+      eventsCollection,
+      sessionsCollection,
+      ...aggregationCollections,
+    ]
+
+    // Register analytics job tasks if enabled
+    if (analyticsTasks.length > 0) {
+      config.jobs = {
+        ...(config.jobs || {}),
+        tasks: [...(config.jobs?.tasks || []), ...analyticsTasks],
+        // Add cron job scheduling for aggregations if not serverless
+        autoRun: !safePluginOptions.isServerless
+          ? [
+              {
+                cron: safePluginOptions.aggregationSchedule?.hourly || '0 * * * *',
+                limit: 10,
+                queue: `${safePluginOptions.collectionSlug}_hourly`,
+              },
+              {
+                cron: safePluginOptions.aggregationSchedule?.daily || '0 2 * * *',
+                limit: 5,
+                queue: `${safePluginOptions.collectionSlug}_daily`,
+              },
+              {
+                cron: safePluginOptions.aggregationSchedule?.cleanup || '0 3 * * 0',
+                limit: 3,
+                queue: `${safePluginOptions.collectionSlug}_cleanup`,
+              },
+            ]
+          : [],
+      }
+    }
 
     config.onInit = async (payload) => {
       if (incomingConfig.onInit) {

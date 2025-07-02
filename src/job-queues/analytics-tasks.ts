@@ -132,8 +132,6 @@ export async function runDailyAggregation(
   })
   const sessions = sessionsRes.docs
 
-  console.log('sessionsRes', sessionsRes)
-
   // Fetch events for this day
   const eventsRes = await payload.find({
     collection: eventsCollection,

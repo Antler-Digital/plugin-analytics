@@ -370,7 +370,6 @@ export async function getDashboardData(
 
     // Determine date range
     const today = new Date()
-    today.setHours(0, 0, 0, 0)
     const startDate = opts.date_from
       ? new Date(opts.date_from)
       : new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
@@ -381,12 +380,13 @@ export async function getDashboardData(
     const endStr = endDate.toISOString().split('T')[0]
 
     // 1. Fetch daily aggregations for the date range (excluding today)
+    // we exclude today because the aggregation is not yet done for today
     const dailyAggsRes = await payload.find({
       collection: dailyAggCollection,
       where: {
         date: {
-          greater_than_equal: startStr,
-          less_than_equal: endStr,
+          greater_than_equal: new Date(startStr),
+          less_than_equal: new Date(endStr),
         },
       },
       limit: 0,
@@ -397,7 +397,7 @@ export async function getDashboardData(
     const hourlyAggsRes = await payload.find({
       collection: hourlyAggCollection,
       where: {
-        date: { equals: todayStr },
+        date: { equals: new Date(todayStr) },
       },
       limit: 0,
     })

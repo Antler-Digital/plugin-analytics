@@ -18,6 +18,8 @@ export function initHourlyAggregationsCollection(
       { name: 'devices', type: 'json' },
       { name: 'operating_systems', type: 'json' },
       { name: 'countries', type: 'json' },
+      { name: 'top_pages', type: 'json' },
+      { name: 'utm_sources', type: 'json' },
     ],
   }
 }

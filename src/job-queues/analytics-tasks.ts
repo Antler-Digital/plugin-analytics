@@ -65,6 +65,27 @@ export async function runHourlyAggregation(
   const operating_systems = countBy(sessions, 'os')
   const countries = countBy(sessions, 'country')
 
+  // Top pages (by path)
+  const topPagesMap: Record<string, number> = {}
+  events.forEach((e: any) => {
+    if (e.path) {
+      topPagesMap[e.path] = (topPagesMap[e.path] || 0) + 1
+    }
+  })
+  const top_pages = Object.entries(topPagesMap)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([path, views]) => ({ path, views }))
+
+  // UTM sources
+  const utmSourcesMap: Record<string, number> = {}
+  sessions.forEach((s: any) => {
+    if (s.utm && s.utm.source) {
+      utmSourcesMap[s.utm.source] = (utmSourcesMap[s.utm.source] || 0) + 1
+    }
+  })
+  const utm_sources = Object.entries(utmSourcesMap).map(([source, count]) => ({ source, count }))
+
   // Upsert aggregation record
   const existing = await payload.find({
     collection: hourlyAggCollection,
@@ -85,6 +106,8 @@ export async function runHourlyAggregation(
     devices,
     operating_systems,
     countries,
+    top_pages,
+    utm_sources,
   }
 
   if (existing.docs.length > 0) {
@@ -164,6 +187,18 @@ export async function runDailyAggregation(
     .slice(0, 10)
     .map(([path, views]) => ({ path, views }))
 
+  // Top referrers (by referrer_url)
+  const topReferrersMap: Record<string, number> = {}
+  events.forEach((e: any) => {
+    if (e.referrer_url) {
+      topReferrersMap[e.referrer_url] = (topReferrersMap[e.referrer_url] || 0) + 1
+    }
+  })
+  const top_referrers = Object.entries(topReferrersMap)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([referrer_url, count]) => ({ referrer_url, count }))
+
   // UTM sources
   const utmSourcesMap: Record<string, number> = {}
   sessions.forEach((s: any) => {
@@ -192,6 +227,7 @@ export async function runDailyAggregation(
     operating_systems,
     countries,
     top_pages,
+    top_referrers,
     utm_sources,
   }
 

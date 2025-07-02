@@ -122,6 +122,28 @@ export function getReferrerUrl(req: PayloadRequest) {
   return req?.headers?.get('referer') || undefined
 }
 
-export function getCountry(req: PayloadRequest) {
-  return req?.headers?.get('x-vercel-ip-country') || undefined
+export async function getCountry(req: PayloadRequest) {
+  // Priority: x-vercel-ip-country > cf-ipcountry > cloudfront-viewer-country
+  const vercel = req?.headers?.get('x-vercel-ip-country')
+  if (vercel) return vercel
+
+  const cf = req?.headers?.get('cf-ipcountry')
+  if (cf) return cf
+
+  const cloudfront = req?.headers?.get('cloudfront-viewer-country')
+  if (cloudfront) return cloudfront
+
+  // Fallback: IP-based geolocation
+  const ip = getIpAddress(req)
+  if (!ip || ip === '0.0.0.0' || ip === '::1' || ip === '127.0.0.1') return undefined
+
+  try {
+    // Use ip-api.com for free IP geolocation (countryCode)
+    const res = await fetch(`http://ip-api.com/json/${ip}?fields=countryCode`)
+    if (!res.ok) return undefined
+    const data = await res.json()
+    return data.countryCode || undefined
+  } catch (e) {
+    return undefined
+  }
 }

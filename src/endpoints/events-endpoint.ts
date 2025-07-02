@@ -53,7 +53,7 @@ export function EventsEndpoint(pluginOptions: AnalyticsPluginOptions): Endpoint 
         const deviceType = userAgent ? getDeviceType(userAgent) : undefined
         const os = userAgent ? getOs(userAgent) : undefined
         const browser = userAgent ? getBrowser(userAgent) : undefined
-        const country = ip ? getCountry(req) : undefined
+        const country = ip ? await getCountry(req) : undefined
         const path = getPathname(req)
 
         let session = await getExistingSession(payload, pluginOptions, hashedIp, domain)

@@ -367,20 +367,18 @@ export async function getDashboardData(
     const { collectionSlug: slug, maxAgeInDays = 90 } = pluginOptions
     const dailyAggCollection = `${slug}-daily-aggregations`
     const hourlyAggCollection = `${slug}-hourly-aggregations`
-
     // Determine date range
     const today = new Date()
+    // today.setHours(0, 0, 0, 0) // this break the fetch
     const startDate = opts.date_from
       ? new Date(opts.date_from)
       : new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
     const endDate = new Date(today)
-    endDate.setDate(today.getDate() - 1)
     const todayStr = today.toISOString().split('T')[0]
     const startStr = startDate.toISOString().split('T')[0]
     const endStr = endDate.toISOString().split('T')[0]
 
     // 1. Fetch daily aggregations for the date range (excluding today)
-    // we exclude today because the aggregation is not yet done for today
     const dailyAggsRes = await payload.find({
       collection: dailyAggCollection,
       where: {
@@ -392,17 +390,16 @@ export async function getDashboardData(
       limit: 0,
     })
     const dailyAggs = dailyAggsRes.docs
-
     // 2. Fetch hourly aggregations for today
     const hourlyAggsRes = await payload.find({
       collection: hourlyAggCollection,
       where: {
-        date: { equals: new Date(todayStr) },
+        date: { equals: todayStr },
       },
       limit: 0,
     })
     const hourlyAggs = hourlyAggsRes.docs
-
+    // console.log({ dailyAggs, hourlyAggs })
     // 3. Merge and transform for dashboard
     // Helper to sum objects
     function sumInto(target: Record<string, number>, source: Record<string, number>) {
@@ -448,7 +445,6 @@ export async function getDashboardData(
       total_views: 0,
       total_visitors: 0,
     }
-
     // 4. Merge daily
     for (const day of dateRange) {
       if (day === todayStr) continue // handled below
@@ -470,15 +466,18 @@ export async function getDashboardData(
       } else {
         // Fallback: sum hourly for this day if available
         const hours = hourlyAggs.filter((a: any) => a.date === day)
-        let views = 0,
-          visitors = 0
+        let views = 0
+        let visitors = 0
         for (const hour of hours) {
+          console.log('hour', hour)
           views += hour.total_events
           visitors += hour.unique_visitors
           sumInto(merged.browsers, hour.browsers || {})
           sumInto(merged.devices, hour.devices || {})
           sumInto(merged.operating_systems, hour.operating_systems || {})
           sumInto(merged.countries, hour.countries || {})
+          sumTopPages(merged.top_pages, hour.top_pages || [])
+          sumUTMSources(merged.utm_sources, hour.utm_sources || [])
         }
         merged.views_and_visitors.push({ day, views, visitors })
         merged.total_views += views
@@ -487,8 +486,8 @@ export async function getDashboardData(
     }
 
     // 5. For today, use hourly
-    let todayViews = 0,
-      todayVisitors = 0
+    let todayViews = 0
+    let todayVisitors = 0
     for (const hour of hourlyAggs) {
       todayViews += hour.total_events
       todayVisitors += hour.unique_visitors
@@ -496,7 +495,8 @@ export async function getDashboardData(
       sumInto(merged.devices, hour.devices || {})
       sumInto(merged.operating_systems, hour.operating_systems || {})
       sumInto(merged.countries, hour.countries || {})
-      // No top_pages/utm_sources in hourly, or sum if present
+      sumTopPages(merged.top_pages, hour.top_pages || [])
+      sumUTMSources(merged.utm_sources, hour.utm_sources || [])
     }
     merged.views_and_visitors.push({ day: todayStr, views: todayViews, visitors: todayVisitors })
     merged.total_views += todayViews

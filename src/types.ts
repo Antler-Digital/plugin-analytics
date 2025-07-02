@@ -40,7 +40,7 @@ export interface CreateSessionData {
   user_agent?: string
 }
 
-export interface CreateEventData extends CreateSessionData {
+export interface CreateEventData {
   event_type: string
   path: string
   query_params?: string
@@ -52,6 +52,8 @@ export interface CreateEventData extends CreateSessionData {
     medium?: string
     term?: string
   }
+  event_data?: any
+  timestamp?: Date
 }
 
 export interface CountryData {

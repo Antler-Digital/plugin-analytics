@@ -96,13 +96,13 @@ export function EventsEndpoint(pluginOptions: AnalyticsPluginOptions): Endpoint 
 
         // Only create events for page views
         const eventData: CreateEventData = {
-          ...sessionData,
           event_type: 'page_view',
           path,
           query_params: getQueryParams(req)?.toString(),
           referrer_url: getReferrerUrl(req),
           session_id: session.id.toString(),
           utm: getUtmParams(req),
+          timestamp: new Date(),
         }
 
         await createEvent(payload, pluginOptions, eventData)

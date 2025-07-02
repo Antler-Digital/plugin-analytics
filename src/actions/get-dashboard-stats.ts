@@ -365,32 +365,44 @@ export async function getDashboardData(
   opts: TableParams,
 ) {
   try {
-    const { collectionSlug: slug } = pluginOptions
-    const collection = `${slug}-events`
+    const { collectionSlug: slug, maxAgeInDays = 90 } = pluginOptions
+    const eventsCollection = `${slug}-events`
     const sessionsCollection = `${slug}-sessions`
 
+    // Enforce maxAgeInDays for date_from
+    let dateFrom = opts.date_from
+    if (dateFrom) {
+      const minAllowedDate = new Date(Date.now() - maxAgeInDays * 24 * 60 * 60 * 1000)
+      if (dateFrom < minAllowedDate) {
+        // Option 1: Override to minAllowedDate
+        dateFrom = minAllowedDate
+        // Option 2: Return error (uncomment to enforce strict error)
+        // return { data: null, error: true, message: `Date range exceeds maximum allowed of ${maxAgeInDays} days.` }
+      }
+    }
+
     const data = await payload.find({
-      // @ts-ignore
-      collection,
-      ...(opts.date_from && {
+      collection: sessionsCollection,
+      ...(dateFrom && {
         where: {
           createdAt: {
-            greater_than_equal: opts.date_from,
+            greater_than_equal: dateFrom,
             // less_than_equal: opts.date_to, // default is today
           },
         },
       }),
       limit: parseInt(opts.limit || '10000'),
       populate: {
-        [sessionsCollection]: {
+        [eventsCollection]: {
           utm: true,
         },
       },
     })
 
+    console.log('data', data)
+
     const rangeData = await payload.find({
-      // @ts-ignore
-      collection,
+      collection: eventsCollection,
       ...(opts.date_change &&
         opts.date_from && {
           where: {

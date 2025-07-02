@@ -17,7 +17,7 @@ export const initDeleteHistoryTask = (
       await req.payload.db.deleteMany({
         collection: `${collectionSlug}-events`,
         where: {
-          date: {
+          timestamp: {
             less_than: daysAgo,
           },
         },
@@ -26,7 +26,7 @@ export const initDeleteHistoryTask = (
       await req.payload.db.deleteMany({
         collection: `${collectionSlug}-sessions`,
         where: {
-          date: {
+          session_start: {
             less_than: daysAgo,
           },
         },

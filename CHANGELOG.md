@@ -1,5 +1,15 @@
 # payload-plugin-analytics
 
+## 1.2.0
+
+### Minor Changes
+
+- c6e22fb: updated core config to handle custom collection; other bug fixes
+
+### Patch Changes
+
+- 874a14a: updated package json to pnpm 10
+
 ## 1.1.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # payload-plugin-analytics
 
+## 1.2.1
+
+### Patch Changes
+
+- 1c8e94d: updated style exports
+
 ## 1.2.0
 
 ### Minor Changes

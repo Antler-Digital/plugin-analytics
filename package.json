@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-analytics",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A plugin for Payload CMS to track analytics",
   "license": "MIT",
   "type": "module",

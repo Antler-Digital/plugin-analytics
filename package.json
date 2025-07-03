@@ -1,7 +1,7 @@
 {
   "name": "payload-plugin-analytics",
   "version": "1.2.0",
-  "description": "A blank template to get started with Payload 3.0",
+  "description": "A plugin for Payload CMS to track analytics",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -136,9 +136,9 @@
         "default": "./dist/exports/rsc.js"
       },
       "./styles": {
-        "import": "./dist/styles/output.css",
-        "types": "./dist/styles/output.css",
-        "default": "./dist/styles/output.css"
+        "import": "./dist/styles/index.css",
+        "types": "./dist/styles/index.css",
+        "default": "./dist/styles/index.css"
       }
     },
     "main": "./dist/index.js",
